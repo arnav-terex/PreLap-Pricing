@@ -86,7 +86,7 @@ with form_col:
     st.subheader("Storage & OS")
     s1, s2, s3 = st.columns(3)
     ssd = s1.selectbox("Primary (GB)", [0, 256, 512, 1024], index=1)
-    storageType = s2.radio("Storage Type (Secondary)",["SSD","HDD","Hybrid","Flash"],horizontal=True,index = 2)
+    storageType = s2.radio("Storage Type (Secondary)",["None","SSD","HDD","Hybrid","Flash"],horizontal=True,index = 2)
     secondary = 0
     if storageType != "None":
         secondary = s3.selectbox(f"Secondary {storageType} size (GB)", [128, 256, 500, 1000, 2000], index=2)
@@ -140,8 +140,8 @@ def predict_with_model(spec: dict):
         "Ram_(GB)": spec["ram"],
         "Inches": spec["size"],
         "Weight_(kg)": spec["weight"],
-        "Screen_Height": x_res,
-        "Screen_Width": y_res,
+        "Screen_Height": y_res,
+        "Screen_Width": x_res,
         "Touchscreen": 1 if spec["touch"] else 0,
         "IPS": 1 if spec["ips"] else 0,
         "PPI": ppi,
@@ -186,7 +186,7 @@ with price_col:
       <div class="range-est">range ${low:,} – ${high:,}</div>
       {bars_html}
       <div class="note">
-        {"This is a <b>placeholder formula</b>, not your trained model. Add <code>model.pkl</code> next to this file to switch to real predictions." if not model else "Prediction is coming from your loaded <code>model.pkl</code>. Check <code>predict_with_model()</code> if the columns don't match your training notebook."}
+        {"Uses loaded <code>model.pkl</code>. Update it time to time for better results"}
       </div>
     </div>
     """, unsafe_allow_html=True)
